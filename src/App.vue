@@ -23,7 +23,6 @@ export default {
   methods: {
     moveNextStep () {
       this.step++
-      console.log('next')
     }
   }
 }
@@ -47,6 +46,8 @@ body {
   text-align: center;
   color: #2c3e50;
   width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   height: 100%;
 }
 </style>

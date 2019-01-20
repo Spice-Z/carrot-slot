@@ -1,7 +1,7 @@
 <template>
   <div class="slot">
-    <h1>Slot</h1>
-    <div class="slot-box">
+    <h1>レベル：{{level}}</h1>
+    <div class="slot-box" v-if="!isLevelChoosing">
       <div class="slot-box-column slot-box-column_up">
         <img
           class="slot-image"
@@ -29,23 +29,40 @@
       </div>
     </div>
     <button class="slot-button" @click="stopSlot" v-if="targetSlot <= 3">Stop</button>
-    <button class="slot-button" @click="resetSlot" v-if="targetSlot > 3">もう一度あそぶ</button>
+    <button class="slot-button" @click="resetSlot" v-if="(targetSlot > 3) && !isLevelChoosing">もう一度あそぶ</button>
+    <button class="slot-button" @click="levelChoose" v-if="(targetSlot > 3) && !isLevelChoosing">レベルを変える</button>
+    <ChangeLevel @level-changed="setLevel" v-if="isLevelChoosing"/>
   </div>
 </template>
 
 <script>
+import ChangeLevel from './ChangeLevel'
+
 export default {
   name: 'Slot',
+  components: {
+    ChangeLevel
+  },
   data () {
     return {
       targetSlot: 1,
       firstMargin: -20,
       secondMargin: -50,
-      thirdMargin: -300
+      thirdMargin: -300,
+      level: 3,
+      isLevelChoosing: false,
+      accurate: {
+        1: 5,
+        2: 10,
+        3: 20,
+        4: 35,
+        5: 90
+      }
     }
   },
   mounted () {
     this.startSlot()
+    console.log(this.accurate[1])
   },
   methods: {
     startSlot () {
@@ -64,9 +81,9 @@ export default {
         if (vm.thirdMargin < -1000) {
           vm.thirdMargin = 0
         }
-        vm.firstMargin = (vm.targetSlot <= 1) ? vm.firstMargin - 5 : vm.firstMargin
-        vm.secondMargin = (vm.targetSlot <= 2) ? vm.secondMargin - 5 : vm.secondMargin
-        vm.thirdMargin = (vm.targetSlot <= 3) ? vm.thirdMargin - 5 : vm.thirdMargin
+        vm.firstMargin = (vm.targetSlot <= 1) ? vm.firstMargin - vm.accurate[vm.level] : vm.firstMargin
+        vm.secondMargin = (vm.targetSlot <= 2) ? vm.secondMargin - vm.accurate[vm.level] : vm.secondMargin
+        vm.thirdMargin = (vm.targetSlot <= 3) ? vm.thirdMargin - vm.accurate[vm.level] : vm.thirdMargin
 
         if (vm.targetSlot > 3) {
           cancelAnimationFrame(vm.timeCountFrame)
@@ -80,6 +97,14 @@ export default {
     },
     resetSlot () {
       this.targetSlot = 1
+    },
+    levelChoose () {
+      this.isLevelChoosing = true
+    },
+    setLevel (level) {
+      this.level = level
+      this.isLevelChoosing = false
+      this.resetSlot()
     }
   }
 }
@@ -116,7 +141,7 @@ h1 {
 .slot-button {
   display: inline-block;
   font-size: 1.1rem;
-  padding: 15px;
+  padding: 10px;
   text-decoration: none;
   background: #d69953;
   color: #FFF;
@@ -126,7 +151,8 @@ h1 {
 }
 
 .slot-button:active {
-    transform: translateY(4px);
-    border-bottom: none;
+  transform: translateY(4px);
+  border-bottom: none;
+  margin-bottom: 4px;
 }
 </style>

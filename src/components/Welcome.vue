@@ -48,4 +48,7 @@ a {
   border: none;
   outline: none;
 }
+.button-start:active{
+  background: #b8daf0;
+}
 </style>
