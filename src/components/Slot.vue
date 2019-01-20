@@ -62,7 +62,6 @@ export default {
   },
   mounted () {
     this.startSlot()
-    console.log(this.accurate[1])
   },
   methods: {
     startSlot () {
@@ -93,7 +92,6 @@ export default {
     },
     stopSlot () {
       this.targetSlot++
-      console.log(this.targetSlot)
     },
     resetSlot () {
       this.targetSlot = 1

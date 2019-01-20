@@ -21,6 +21,9 @@ export default {
     }
   },
   mounted () {
+    console.log('ずるはしないでくださ〜〜〜い！！')
+    console.log('でもtwitterフォローしてくれたら、ずるをしてもいいですよ！')
+    console.log('https://twitter.com/rabspice')
     this.track()
   },
   methods: {
