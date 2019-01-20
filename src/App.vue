@@ -20,7 +20,13 @@ export default {
       step: 1
     }
   },
+  mounted () {
+    this.track()
+  },
   methods: {
+    track () {
+      this.$ga.page('/')
+    },
     moveNextStep () {
       this.step++
     }
