@@ -29,8 +29,8 @@
       </div>
     </div>
     <button class="slot-button" @click="stopSlot" v-if="targetSlot <= 3">Stop</button>
-    <button class="slot-button" @click="resetSlot" v-if="(targetSlot > 3) && !isLevelChoosing">もう一度あそぶ</button>
-    <button class="slot-button" @click="levelChoose" v-if="(targetSlot > 3) && !isLevelChoosing">レベルを変える</button>
+    <button class="slot-button" @click="resetSlot" v-if="(targetSlot > 3) && !isLevelChoosing">もう一度</button>
+    <button class="slot-button" @click="levelChoose" v-if="(targetSlot > 3) && !isLevelChoosing">レベル変更</button>
     <ChangeLevel @level-changed="setLevel" v-if="isLevelChoosing"/>
   </div>
 </template>
